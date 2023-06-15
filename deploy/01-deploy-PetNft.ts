@@ -69,6 +69,11 @@ const deployBasicNft: DeployFunction = async ({
     log: true,
     waitConfirmations: waitConfirmations,
   });
+
+  if (devChains.includes(network.name)) {
+    vrfCoordinatorV2Mock!.addConsumer(subId, petNft.address);
+  }
+
   log('Pet NFT contract deployed');
   log('-'.repeat(54));
 

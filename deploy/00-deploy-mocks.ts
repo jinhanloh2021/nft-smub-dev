@@ -1,6 +1,6 @@
 import { network } from 'hardhat';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
-import { developmentChains } from '../reference/helper-hardhat-config';
+import { devChains } from '../helper-hardhat-config';
 import { DeployFunction } from 'hardhat-deploy/dist/types';
 import { BASE_FEE, GAS_PRICE_LINK } from '../helper-hardhat-config';
 
@@ -12,7 +12,7 @@ const deployMocks: DeployFunction = async ({
   const { deployer } = await getNamedAccounts();
 
   log('------------------00-deploy-mocks.ts------------------');
-  if (developmentChains.includes(network.name)) {
+  if (devChains.includes(network.name)) {
     log('Local network detected. Deploying mocks...');
     // deploy mock vrf coordinator
     await deploy('VRFCoordinatorV2Mock', {

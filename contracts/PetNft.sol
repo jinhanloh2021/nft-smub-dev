@@ -6,9 +6,9 @@ import '@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol';
 import '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 
-error RandomIpfsNft__RangeOutOfBounds();
-error RandomIpfsNft__NotEnoughETHSent(uint256 sentAmount);
-error RandomIpfsNft__WithdrawFailed(uint256 withdrawAmount);
+error PetNft__RangeOutOfBounds();
+error PetNft__NotEnoughETHSent(uint256 sentAmount);
+error PetNft__WithdrawFailed(uint256 withdrawAmount);
 
 /**
  * @title Generate NFT using VRF
@@ -62,7 +62,7 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     uint32 _callbackGasLimit,
     string[3] memory _tokenUris,
     uint256 _mintFee
-  ) VRFConsumerBaseV2(_vrfCoordinator) ERC721('PetNft', 'RIN') {
+  ) VRFConsumerBaseV2(_vrfCoordinator) ERC721('PetNft', 'PNT') {
     i_vrfCoordinator = VRFCoordinatorV2Interface(_vrfCoordinator);
     i_gasLane = _gasLane;
     i_subscriptionId = _subscriptionId;
@@ -77,7 +77,7 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
    */
   function requestNft() public payable returns (uint256 requestId) {
     if (msg.value < i_mintFee) {
-      revert RandomIpfsNft__NotEnoughETHSent(msg.value);
+      revert PetNft__NotEnoughETHSent(msg.value);
     }
     requestId = i_vrfCoordinator.requestRandomWords(
       i_gasLane,
@@ -119,7 +119,7 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     uint256 amount = address(this).balance;
     (bool success, ) = payable(msg.sender).call{value: amount}('');
     if (!success) {
-      revert RandomIpfsNft__WithdrawFailed(amount);
+      revert PetNft__WithdrawFailed(amount);
     }
   }
 
@@ -140,7 +140,7 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
         return Name(i);
       }
     }
-    revert RandomIpfsNft__RangeOutOfBounds();
+    revert PetNft__RangeOutOfBounds();
   }
 
   function getChanceArray() public pure returns (uint8[3] memory) {
@@ -157,5 +157,27 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
 
   function getTokenCounter() public view returns (uint256) {
     return s_tokenCounter;
+  }
+
+  function getSenderFromRequestId(
+    uint256 requestId
+  ) public view returns (address) {
+    return s_requestIdToSender[requestId];
+  }
+
+  function getVrfCoordinator() public view returns (VRFCoordinatorV2Interface) {
+    return i_vrfCoordinator;
+  }
+
+  function getSubscriptionId() public view returns (uint64) {
+    return i_subscriptionId;
+  }
+
+  function getGasLane() public view returns (bytes32) {
+    return i_gasLane;
+  }
+
+  function getCallbackGasLimit() public view returns (uint32) {
+    return i_callbackGasLimit;
   }
 }
