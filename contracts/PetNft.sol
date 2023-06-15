@@ -29,8 +29,8 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
   uint64 private immutable i_subscriptionId;
   bytes32 private immutable i_gasLane;
   uint32 private immutable i_callbackGasLimit;
-  uint16 private constant REQUEST_CONFIRMATIONS = 3;
-  uint32 private constant NUM_WORDS = 1;
+  uint8 private constant REQUEST_CONFIRMATIONS = 3;
+  uint8 private constant NUM_WORDS = 1;
 
   // VRF Helpers
   // Map requestId -> sender
@@ -106,7 +106,7 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     uint8 randNum = uint8(randomWords[0] % 100); // random number between 0 - 99
     Name name = getNftName(randNum);
     _safeMint(minter, newTokenId);
-    _setTokenURI(newTokenId, s_tokenUris[uint256(name)]);
+    _setTokenURI(newTokenId, s_tokenUris[uint8(name)]);
     s_tokenCounter++;
     emit NftMinted(name, minter);
   }
@@ -151,7 +151,7 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     return i_mintFee;
   }
 
-  function getTokenUris(uint256 index) public view returns (string memory) {
+  function getTokenUris(uint8 index) public view returns (string memory) {
     return s_tokenUris[index];
   }
 

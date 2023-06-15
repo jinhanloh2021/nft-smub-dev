@@ -1,3 +1,4 @@
+import { BigNumber } from 'ethers';
 import { ethers } from 'hardhat';
 
 export interface networkConfigItem {
@@ -21,7 +22,7 @@ export const networkConfig: networkConfigInfo = {
     callbackGasLimit: (5e5).toString(), // 500,000 gas
     mintFee: (1e16).toString(), // 0.01 ETH
   },
-  // Price Feed Address, values can be obtained at https://docs.chain.link/data-feeds/price-feeds/addresses
+  // Sepolia testnet VRF address: https://docs.chain.link/vrf/v2/subscription/supported-networks
   11155111: {
     name: 'sepolia',
     vrfCoordinatorV2: '0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625',
@@ -42,5 +43,7 @@ export const networkConfig: networkConfigInfo = {
 };
 
 export const VRF_SUBSCRIPTION_FUND_AMOUNT = ethers.utils.parseEther('2');
-export const developmentChains = ['hardhat', 'localhost'];
+export const devChains = ['hardhat', 'localhost'];
 export const VERIFICATION_BLOCK_CONFIRMATIONS = 6;
+export const BASE_FEE = ethers.utils.parseEther('0.25');
+export const GAS_PRICE_LINK = BigNumber.from((1e9).toString());

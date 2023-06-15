@@ -1,11 +1,8 @@
 import { network } from 'hardhat';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { developmentChains } from '../reference/helper-hardhat-config';
-import { BigNumber, ethers } from 'ethers';
 import { DeployFunction } from 'hardhat-deploy/dist/types';
-
-const BASE_FEE = ethers.utils.parseEther('0.25'); // 0.25 is the premium
-const GAS_PRICE_LINK = BigNumber.from((1e9).toString());
+import { BASE_FEE, GAS_PRICE_LINK } from '../helper-hardhat-config';
 
 const deployMocks: DeployFunction = async ({
   getNamedAccounts,
