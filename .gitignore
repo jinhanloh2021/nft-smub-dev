@@ -7,7 +7,6 @@ typechain-types
 deployments
 .solhint.json
 .solhintignore
-README.md
 
 # Hardhat files
 cache
