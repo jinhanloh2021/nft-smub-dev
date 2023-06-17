@@ -84,19 +84,17 @@ import { PetNft, VRFCoordinatorV2Mock } from '../typechain-types';
         });
         it('Emits NftMinted event when successfully fulfills random words', async () => {
           await new Promise<void>(async (resolve, reject) => {
-            console.log('Wait for nftminted event');
             petNft.once('NftMinted', async () => {
-              console.log('Event listened');
               try {
-                console.log('Minted. Check post mint states like counter.');
                 const newTokenId = await petNft.getTokenCounter();
-                // console.log(`OldTokenId ${oldTokenId}`);
-                // console.log(`NewTokenId ${newTokenId}`);
+                assert.equal(
+                  newTokenId.toString(),
+                  oldTokenId.add(1).toString()
+                );
                 resolve();
               } catch (e) {
                 reject(e);
               }
-              resolve();
             });
             const oldTokenId = await petNft.getTokenCounter();
             const transRes = await petNft.requestNft({ value: mintFee });
@@ -107,10 +105,36 @@ import { PetNft, VRFCoordinatorV2Mock } from '../typechain-types';
               requestId,
               petNft.address
             );
-            console.log('Called fulfill random words');
           });
         });
         describe('withdraw', () => {});
         describe('getNftName', () => {});
+      });
+
+      describe('getNftName', () => {
+        it('Returns 0 for rand num between 0 and 9', async () => {
+          const lowerName = await petNft.getNftName(0);
+          const midName = await petNft.getNftName(5);
+          const highName = await petNft.getNftName(9);
+          assert.equal(lowerName, 0);
+          assert.equal(midName, 0);
+          assert.equal(highName, 0);
+        });
+        it('Returns 1 for rand num between 10 and 29', async () => {
+          const lowerName = await petNft.getNftName(10);
+          const midName = await petNft.getNftName(20);
+          const highName = await petNft.getNftName(29);
+          assert.equal(lowerName, 1);
+          assert.equal(midName, 1);
+          assert.equal(highName, 1);
+        });
+        it('Returns 2 for rand num between 30 and 99', async () => {
+          const lowerName = await petNft.getNftName(30);
+          const midName = await petNft.getNftName(50);
+          const highName = await petNft.getNftName(99);
+          assert.equal(lowerName, 2);
+          assert.equal(midName, 2);
+          assert.equal(highName, 2);
+        });
       });
     });

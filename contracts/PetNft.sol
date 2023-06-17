@@ -102,16 +102,14 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     uint256 requestId,
     uint256[] memory randomWords
   ) internal override {
-    // address minter = s_requestIdToSender[requestId];
-    // uint256 newTokenId = s_tokenCounter;
-    // s_tokenCounter += 1;
-
-    // uint8 randNum = uint8(randomWords[0] % 100); // random number between 0 - 99
-    // Name name = getNftName(randNum);
-    // _safeMint(minter, newTokenId);
-    // _setTokenURI(newTokenId, s_tokenUris[uint8(name)]);
-    s_tokenCounter = randomWords[0];
-    emit NftMinted(Name(1), 1, address(1));
+    address minter = s_requestIdToSender[requestId];
+    uint256 newTokenId = s_tokenCounter;
+    s_tokenCounter += 1;
+    uint8 randNum = uint8(randomWords[0] % 100); // random number between 0 - 99
+    Name name = getNftName(randNum);
+    _safeMint(minter, newTokenId);
+    _setTokenURI(newTokenId, s_tokenUris[uint8(name)]);
+    emit NftMinted(name, newTokenId, minter);
   }
 
   /**
@@ -148,9 +146,12 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
    */
   function getNftName(uint8 randNum) public pure returns (Name name) {
     uint8[3] memory chanceArray = getChanceArray();
-    for (uint8 i = 0; i < chanceArray.length; i++) {
-      uint8 lowerBound = i - 1 < 0 ? 0 : chanceArray[i - 1];
+    for (uint8 i = 0; i < chanceArray.length || i == 100; i++) {
+      uint8 lowerBound = 0;
       uint8 upperBound = chanceArray[i];
+      if (i != 0) {
+        lowerBound = chanceArray[i - 1];
+      }
       if (randNum >= lowerBound && randNum < upperBound) {
         return Name(i);
       }
