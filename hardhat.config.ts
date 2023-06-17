@@ -20,7 +20,7 @@ const config: HardhatUserConfig = {
     },
     localhost: {
       url: 'http://127.0.0.1:8545/',
-      // accounts: [provided by hardhat]
+      // accounts: [provided by hardhat],
       chainId: 31337,
     },
   },
@@ -28,7 +28,7 @@ const config: HardhatUserConfig = {
     apiKey: process.env.ETHERSCAN_API_KEY || 'Key',
   },
   gasReporter: {
-    enabled: false,
+    enabled: true,
     currency: 'USD',
     outputFile: 'gas-report.txt',
     noColors: true,
@@ -38,7 +38,7 @@ const config: HardhatUserConfig = {
     deployer: {
       default: 0,
     },
-    player: {
+    nonOwner: {
       default: 1,
     },
   },
