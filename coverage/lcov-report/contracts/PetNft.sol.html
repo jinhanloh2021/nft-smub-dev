@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/PetNft.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> PetNft.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.55% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>29/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">83.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>10/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.5% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>14/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.13% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>41/46</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
+&nbsp;
+import '@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol';
+import '@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol';
+import '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';
+import '@openzeppelin/contracts/access/Ownable.sol';
+&nbsp;
+error PetNft__RangeOutOfBounds();
+error PetNft__NotEnoughETHSent(uint256 sentAmount);
+error PetNft__WithdrawFailed(uint256 withdrawAmount);
+error PetNft__AlreadyInitialised();
+&nbsp;
+/**
+ * @title Generate NFT using VRF
+ * @author Jin Han
+ * @notice Extends ERC721URIStorage, which means that URI is stored on chain. Can be gas inefficient. On mint, request VRF from chainlink. When fulfilled, random num returned and used to select random NFT. Different rarity for different NFT. Users have to pay to mint. Owner of contract can withdraw ETH.
+ */
+&nbsp;
+contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
+  // Type declarations
+  enum Name {
+    EVE,
+    TEHPENG,
+    ORHORH
+  }
+&nbsp;
+  // VRF Variables
+  VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
+  uint64 private immutable i_subscriptionId;
+  bytes32 private immutable i_gasLane;
+  uint32 private immutable i_callbackGasLimit;
+  uint8 private constant REQUEST_CONFIRMATIONS = 3;
+  uint8 private constant NUM_WORDS = 1;
+&nbsp;
+  // VRF Helpers
+  // Map requestId -&gt; sender
+  mapping(uint256 =&gt; address) private s_requestIdToSender;
+&nbsp;
+  // NFT Variables
+  uint256 public s_tokenCounter;
+  string[] private s_tokenUris;
+  uint256 private immutable i_mintFee;
+  bool private s_initialised;
+&nbsp;
+  // Events
+  event NftRequested(uint256 indexed requestId, address requester);
+  event NftMinted(Name name, uint256 tokenId, address minter);
+&nbsp;
+  // Functions
+  /**
+   * @notice Constructor calls parents VRFConsumerBaseV2 and ERC721
+   * @param _vrfCoordinator - coordinator, check https://docs.chain.link/docs/vrf-contracts/#configurations
+   * @param _gasLane - the gas lane to use, which specifies the max gas price to bump to
+   * @param _subscriptionId - the subId that this contract uses for funding requests
+   * @param _callbackGasLimit - gas limit for callback in fulfillRandomWords()
+   * @param _tokenUris - URIs of 3 NFT images
+   * @param _mintFee - fee for minting NFT
+   */
+  constructor(
+    address _vrfCoordinator,
+    bytes32 _gasLane,
+    uint64 _subscriptionId,
+    uint32 _callbackGasLimit,
+    string[3] memory _tokenUris,
+    uint256 _mintFee
+  ) VRFConsumerBaseV2(_vrfCoordinator) ERC721('PetNft', 'PNT') {
+    i_vrfCoordinator = VRFCoordinatorV2Interface(_vrfCoordinator);
+    i_gasLane = _gasLane;
+    i_subscriptionId = _subscriptionId;
+    i_callbackGasLimit = _callbackGasLimit;
+    i_mintFee = _mintFee;
+    _initialiseContract(_tokenUris);
+  }
+&nbsp;
+  /**
+   * @notice Public function to call when minting NFT. Requests randomness, and maps requestId to sender address.
+   * @return requestId - Identifies the transaction for VRF and for mint
+   */
+  function requestNft() public payable returns (uint256 requestId) {
+    if (msg.value &lt; i_mintFee) {
+      revert PetNft__NotEnoughETHSent(msg.value);
+    }
+    requestId = i_vrfCoordinator.requestRandomWords(
+      i_gasLane,
+      i_subscriptionId,
+      REQUEST_CONFIRMATIONS,
+      i_callbackGasLimit,
+      NUM_WORDS
+    );
+    s_requestIdToSender[requestId] = msg.sender;
+    emit NftRequested(requestId, msg.sender);
+  }
+&nbsp;
+  /**
+   * @notice Called when VRF verifies proof of randomness and responds to request
+   * @param requestId - The id initially returned by requestRandomWords()
+   * @param randomWords - The VRF output expanded to the number of words
+   * @dev This function uses a single random number to pick an NFT randomly. After it's picked, the nft is minted by _safeMint and the URI to the image is set.
+   */
+  function fulfillRandomWords(
+    uint256 requestId,
+    uint256[] memory randomWords
+  ) internal override {
+    address minter = s_requestIdToSender[requestId];
+    uint256 newTokenId = s_tokenCounter;
+    s_tokenCounter += 1;
+    uint8 randNum = uint8(randomWords[0] % 100); // random number between 0 - 99
+    Name name = getNftName(randNum);
+    _safeMint(minter, newTokenId);
+    _setTokenURI(newTokenId, s_tokenUris[uint8(name)]);
+    emit NftMinted(name, newTokenId, minter);
+  }
+&nbsp;
+  /**
+   * @notice Called in constructor. Prevents constructor from being called twice.
+   * @param _tokenUris Uris of NFT tokens
+   */
+  function _initialiseContract(string[3] memory _tokenUris) private {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (s_initialised) {
+      revert PetNft__AlreadyInitialised();
+    }
+    s_tokenUris = _tokenUris;
+    s_initialised = true;
+  }
+&nbsp;
+  /**
+   * @notice Called when owner of contract wants to withdraw funds collected from mints
+   * @dev Only owner can call, as extended by Ownable. Use low level call to transfer funds.
+   */
+  function withdraw() public onlyOwner {
+    uint256 amount = address(this).balance;
+    (bool success, ) = payable(msg.sender).call{value: amount}('');
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!success) {
+      revert PetNft__WithdrawFailed(amount);
+    }
+  }
+&nbsp;
+  // View/Pure functions
+&nbsp;
+  /**
+   * @notice This pure function is used to randomly select an NFT
+   * @param randNum - Accepts the random number from fulfillRandomWords
+   * @return name - The name of the randomly selected NFT
+   * @dev Loops through chance array and checks if RNG lies within an interval. Each interval corresponds to an NFT name. 0-9: Eve, 10-29: OrhOrh, 30-99: TehPeng. Chance array hardcoded. Hardcoded for loop uppper bound to prevent infinite loop for safety.
+   */
+  function getNftName(uint8 randNum) public pure returns (Name name) {
+    uint8[3] memory chanceArray = getChanceArray();
+    for (uint8 i = 0; i &lt; chanceArray.length || i == 100; i++) {
+      uint8 lowerBound = 0;
+      uint8 upperBound = chanceArray[i];
+      if (i != 0) {
+        lowerBound = chanceArray[i - 1];
+      }
+      if (randNum &gt;= lowerBound &amp;&amp; randNum &lt; upperBound) {
+        return Name(i);
+      }
+    }
+    revert PetNft__RangeOutOfBounds();
+  }
+&nbsp;
+  function getChanceArray() public pure returns (uint8[3] memory) {
+    return [10, 30, 100]; // hard coded
+  }
+&nbsp;
+  function getMintFee() public view returns (uint256) {
+    return i_mintFee;
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getTokenUris(uint8 index) public view returns (string memory) {</span>
+<span class="cstat-no" title="statement not covered" >    return s_tokenUris[index];</span>
+  }
+&nbsp;
+  function getTokenCounter() public view returns (uint256) {
+    return s_tokenCounter;
+  }
+&nbsp;
+  function getSenderFromRequestId(
+    uint256 requestId
+  ) public view returns (address) {
+    return s_requestIdToSender[requestId];
+  }
+&nbsp;
+  function getVrfCoordinator() public view returns (VRFCoordinatorV2Interface) {
+    return i_vrfCoordinator;
+  }
+&nbsp;
+  function getSubscriptionId() public view returns (uint64) {
+    return i_subscriptionId;
+  }
+&nbsp;
+  function getGasLane() public view returns (bytes32) {
+    return i_gasLane;
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getCallbackGasLimit() public view returns (uint32) {</span>
+<span class="cstat-no" title="statement not covered" >    return i_callbackGasLimit;</span>
+  }
+&nbsp;
+  function getInitialised() public view returns (bool) {
+    return s_initialised;
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jun 17 2023 18:48:09 GMT+0800 (Singapore Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
