@@ -77,12 +77,12 @@ import { PetNft, VRFCoordinatorV2Mock } from '../typechain-types';
       });
 
       describe('fulfillRandomWords', () => {
-        it('Cannot fulfill random words before minting NFT', async () => {
+        it('Reverts if fulfillRandomWords called before minting NFT', async () => {
           await expect(
             VRFCoordinatorV2.fulfillRandomWords(0, petNft.address)
           ).to.be.revertedWith('nonexistent request');
         });
-        it('Emits NftMinted event when successfully fulfills random words', async () => {
+        it('Increments token counter when NFT minted', async () => {
           await new Promise<void>(async (resolve, reject) => {
             petNft.once('NftMinted', async () => {
               try {
@@ -107,8 +107,35 @@ import { PetNft, VRFCoordinatorV2Mock } from '../typechain-types';
             );
           });
         });
-        describe('withdraw', () => {});
-        describe('getNftName', () => {});
+
+        it('Owner of NFT set and token balance incremented', async () => {
+          await new Promise<void>(async (resolve, reject) => {
+            petNft.once('NftMinted', async () => {
+              try {
+                const endTokenBalance = await petNft.balanceOf(deployer);
+                const ownerOfNft = await petNft.ownerOf(tokenId);
+                assert.equal(ownerOfNft, deployer);
+                assert.equal(
+                  endTokenBalance.toString(),
+                  startTokenBalance.add(1).toString()
+                );
+                resolve();
+              } catch (e) {
+                reject(e);
+              }
+            });
+            const tokenId = await petNft.getTokenCounter();
+            const startTokenBalance = await petNft.balanceOf(deployer);
+            const transRes = await petNft.requestNft({ value: mintFee });
+            const transReceipt = await transRes.wait(1);
+            const requestId = transReceipt.events![1].args!.requestId;
+
+            await VRFCoordinatorV2.fulfillRandomWords(
+              requestId,
+              petNft.address
+            );
+          });
+        });
       });
 
       describe('getNftName', () => {
@@ -135,6 +162,11 @@ import { PetNft, VRFCoordinatorV2Mock } from '../typechain-types';
           assert.equal(lowerName, 2);
           assert.equal(midName, 2);
           assert.equal(highName, 2);
+        });
+      });
+      describe('withdraw', () => {
+        it('Reverts if non-owner calls withdraw', async () => {
+          const nonOwner = (await ethers.getSigners())[1];
         });
       });
     });

@@ -142,7 +142,7 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
    * @notice This pure function is used to randomly select an NFT
    * @param randNum - Accepts the random number from fulfillRandomWords
    * @return name - The name of the randomly selected NFT
-   * @dev Loops through chance array and checks if RNG lies within an interval. Each interval corresponds to an NFT name. 0-9: Eve, 10-29: OrhOrh, 30-99: TehPeng. Chance array hardcoded.
+   * @dev Loops through chance array and checks if RNG lies within an interval. Each interval corresponds to an NFT name. 0-9: Eve, 10-29: OrhOrh, 30-99: TehPeng. Chance array hardcoded. Hardcoded for loop uppper bound to prevent infinite loop for safety.
    */
   function getNftName(uint8 randNum) public pure returns (Name name) {
     uint8[3] memory chanceArray = getChanceArray();
