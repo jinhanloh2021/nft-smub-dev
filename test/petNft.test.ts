@@ -76,7 +76,41 @@ import { PetNft, VRFCoordinatorV2Mock } from '../typechain-types';
         });
       });
 
-      describe('fulfillRandomWords', () => {});
-      describe('withdraw', () => {});
-      describe('getNftName', () => {});
+      describe('fulfillRandomWords', () => {
+        it('Cannot fulfill random words before minting NFT', async () => {
+          await expect(
+            VRFCoordinatorV2.fulfillRandomWords(0, petNft.address)
+          ).to.be.revertedWith('nonexistent request');
+        });
+        it('Emits NftMinted event when successfully fulfills random words', async () => {
+          await new Promise<void>(async (resolve, reject) => {
+            console.log('Wait for nftminted event');
+            petNft.once('NftMinted', async () => {
+              console.log('Event listened');
+              try {
+                console.log('Minted. Check post mint states like counter.');
+                const newTokenId = await petNft.getTokenCounter();
+                // console.log(`OldTokenId ${oldTokenId}`);
+                // console.log(`NewTokenId ${newTokenId}`);
+                resolve();
+              } catch (e) {
+                reject(e);
+              }
+              resolve();
+            });
+            const oldTokenId = await petNft.getTokenCounter();
+            const transRes = await petNft.requestNft({ value: mintFee });
+            const transReceipt = await transRes.wait(1);
+            const requestId = transReceipt.events![1].args!.requestId;
+
+            await VRFCoordinatorV2.fulfillRandomWords(
+              requestId,
+              petNft.address
+            );
+            console.log('Called fulfill random words');
+          });
+        });
+        describe('withdraw', () => {});
+        describe('getNftName', () => {});
+      });
     });

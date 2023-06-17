@@ -9,6 +9,7 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 error PetNft__RangeOutOfBounds();
 error PetNft__NotEnoughETHSent(uint256 sentAmount);
 error PetNft__WithdrawFailed(uint256 withdrawAmount);
+error PetNft__AlreadyInitialised();
 
 /**
  * @title Generate NFT using VRF
@@ -40,10 +41,11 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
   uint256 public s_tokenCounter;
   string[] private s_tokenUris;
   uint256 private immutable i_mintFee;
+  bool private s_initialised;
 
   // Events
   event NftRequested(uint256 indexed requestId, address requester);
-  event NftMinted(Name name, address minter);
+  event NftMinted(Name name, uint256 tokenId, address minter);
 
   // Functions
   /**
@@ -67,8 +69,8 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     i_gasLane = _gasLane;
     i_subscriptionId = _subscriptionId;
     i_callbackGasLimit = _callbackGasLimit;
-    s_tokenUris = _tokenUris;
     i_mintFee = _mintFee;
+    _initialiseContract(_tokenUris);
   }
 
   /**
@@ -100,15 +102,28 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     uint256 requestId,
     uint256[] memory randomWords
   ) internal override {
-    address minter = s_requestIdToSender[requestId];
-    uint256 newTokenId = s_tokenCounter;
+    // address minter = s_requestIdToSender[requestId];
+    // uint256 newTokenId = s_tokenCounter;
+    // s_tokenCounter += 1;
 
-    uint8 randNum = uint8(randomWords[0] % 100); // random number between 0 - 99
-    Name name = getNftName(randNum);
-    _safeMint(minter, newTokenId);
-    _setTokenURI(newTokenId, s_tokenUris[uint8(name)]);
-    s_tokenCounter++;
-    emit NftMinted(name, minter);
+    // uint8 randNum = uint8(randomWords[0] % 100); // random number between 0 - 99
+    // Name name = getNftName(randNum);
+    // _safeMint(minter, newTokenId);
+    // _setTokenURI(newTokenId, s_tokenUris[uint8(name)]);
+    s_tokenCounter = randomWords[0];
+    emit NftMinted(Name(1), 1, address(1));
+  }
+
+  /**
+   * @notice Called in constructor. Prevents constructor from being called twice.
+   * @param _tokenUris Uris of NFT tokens
+   */
+  function _initialiseContract(string[3] memory _tokenUris) private {
+    if (s_initialised) {
+      revert PetNft__AlreadyInitialised();
+    }
+    s_tokenUris = _tokenUris;
+    s_initialised = true;
   }
 
   /**
@@ -179,5 +194,9 @@ contract PetNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
 
   function getCallbackGasLimit() public view returns (uint32) {
     return i_callbackGasLimit;
+  }
+
+  function getInitialised() public view returns (bool) {
+    return s_initialised;
   }
 }

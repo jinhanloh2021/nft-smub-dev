@@ -4,7 +4,7 @@ import { ethers } from 'hardhat';
 export interface networkConfigItem {
   name?: string;
   subscriptionId?: string;
-  callbackGasLimit?: string;
+  callbackGasLimit?: BigNumber;
   vrfCoordinatorV2?: string;
   gasLane?: string;
   mintFee?: string;
@@ -18,8 +18,8 @@ export const networkConfig: networkConfigInfo = {
   31337: {
     name: 'localhost',
     gasLane:
-      '0xd89b2bf150e3b9e13446986e571fb9cab24b13cea0a43ea20a6049a85cc807cc', // 30 gwei
-    callbackGasLimit: (5e5).toString(), // 500,000 gas
+      '0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c',
+    callbackGasLimit: BigNumber.from((1e9).toString()),
     mintFee: (1e16).toString(), // 0.01 ETH
   },
   // Sepolia testnet VRF address: https://docs.chain.link/vrf/v2/subscription/supported-networks
@@ -28,21 +28,21 @@ export const networkConfig: networkConfigInfo = {
     vrfCoordinatorV2: '0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625',
     gasLane:
       '0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c',
-    callbackGasLimit: (5e5).toString(),
+    callbackGasLimit: BigNumber.from((1e9).toString()),
     mintFee: (1e16).toString(),
     subscriptionId: '2708',
   },
   0: {
     name: '',
     subscriptionId: '',
-    callbackGasLimit: '',
+    callbackGasLimit: BigNumber.from(0),
     vrfCoordinatorV2: '',
     gasLane: '',
     mintFee: '',
   },
 };
 
-export const VRF_SUBSCRIPTION_FUND_AMOUNT = ethers.utils.parseEther('2');
+export const VRF_SUBSCRIPTION_FUND_AMOUNT = ethers.utils.parseEther('10');
 export const devChains = ['hardhat', 'localhost'];
 export const VERIFICATION_BLOCK_CONFIRMATIONS = 6;
 export const BASE_FEE = ethers.utils.parseEther('0.25');
