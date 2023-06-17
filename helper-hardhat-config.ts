@@ -19,7 +19,7 @@ export const networkConfig: networkConfigInfo = {
     name: 'localhost',
     gasLane:
       '0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c',
-    callbackGasLimit: BigNumber.from((1e9).toString()),
+    callbackGasLimit: BigNumber.from((5e5).toString()),
     mintFee: (1e16).toString(), // 0.01 ETH
   },
   // Sepolia testnet VRF address: https://docs.chain.link/vrf/v2/subscription/supported-networks
@@ -28,9 +28,9 @@ export const networkConfig: networkConfigInfo = {
     vrfCoordinatorV2: '0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625',
     gasLane:
       '0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c',
-    callbackGasLimit: BigNumber.from((1e9).toString()),
+    callbackGasLimit: BigNumber.from((5e5).toString()),
     mintFee: (1e16).toString(),
-    subscriptionId: '2708',
+    subscriptionId: process.env.SEPOLIA_VRF_SUBSCRIPTION_ID,
   },
   0: {
     name: '',

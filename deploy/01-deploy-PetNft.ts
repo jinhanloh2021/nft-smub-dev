@@ -44,6 +44,7 @@ const deployBasicNft: DeployFunction = async ({
       subId,
       VRF_SUBSCRIPTION_FUND_AMOUNT
     );
+    // testnet fundscription done manually at https://vrf.chain.link/sepolia/{your subId}
   } else {
     // on testnet/mainnet, get address from const
     vrfCoordinatorV2Address = networkConfig[chainId].vrfCoordinatorV2 ?? '0x0';
@@ -73,6 +74,7 @@ const deployBasicNft: DeployFunction = async ({
   if (devChains.includes(network.name)) {
     vrfCoordinatorV2Mock!.addConsumer(subId, petNft.address);
   }
+  // test net have to add consumer manually at https://vrf.chain.link/sepolia/{your subId}
 
   log('Pet NFT contract deployed');
   log('-'.repeat(54));
